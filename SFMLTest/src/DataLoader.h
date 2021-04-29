@@ -10,6 +10,7 @@ public:
 	static Texture* personTexture;
 	static Texture* simpleRoomTexture;
 	static Texture* globalRoomTexture;
+	static Texture* uITexture;
 
 
 	static RoomFootprint* simpleRoomFootprint;

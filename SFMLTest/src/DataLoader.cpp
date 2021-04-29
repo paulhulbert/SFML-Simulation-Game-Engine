@@ -4,6 +4,7 @@ using namespace std;
 Texture* DataLoader::personTexture = NULL;
 Texture* DataLoader::simpleRoomTexture = NULL;
 Texture* DataLoader::globalRoomTexture = NULL;
+Texture* DataLoader::uITexture = NULL;
 
 
 
@@ -59,5 +60,6 @@ void DataLoader::initialize()
 	personTexture = loadTexture("images/Person.png");
 	simpleRoomTexture = loadTexture("images/BrownRectangle.png");
 	globalRoomTexture = loadTexture("images/GreenRectangle.png");
+	uITexture = loadTexture("images/TanRectangle.png");
 	createFootprints();
 }

@@ -3,6 +3,7 @@
 #include <list>
 #include "GameObject.h"
 #include "GameObjects/Room.h"
+#include "GameUI.h"
 using namespace sf;
 using namespace std;
 class GameEngine
@@ -15,5 +16,6 @@ private:
 	RenderWindow* app;
 	list<GameObject*> gameObjects;
 	Room* mainRoom;
+	GameUI* gameUI;
 };
 

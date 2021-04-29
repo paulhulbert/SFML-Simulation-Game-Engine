@@ -10,27 +10,6 @@ using std::endl;
 using std::cout;
 
 
-void drawGridMesh(RenderWindow* app)
-{
-    for (int i = 0; i < 100; i++)
-    {
-        VertexArray lines(sf::LinesStrip, 0);
-
-        lines.append(sf::Vector2f(i * Constants::TILE_LENGTH - .5 * Constants::TILE_LENGTH, 0));
-        lines.append(sf::Vector2f(i * Constants::TILE_LENGTH - .5 * Constants::TILE_LENGTH, 2000));
-
-        app->draw(lines);
-
-        VertexArray lines2(sf::LinesStrip, 0);
-
-        lines2.append(sf::Vector2f(0, i * Constants::TILE_LENGTH - .5 * Constants::TILE_LENGTH));
-        lines2.append(sf::Vector2f(4000, i * Constants::TILE_LENGTH - .5 * Constants::TILE_LENGTH));
-
-        app->draw(lines2);
-    }
-}
-
-
 int main()
 {
     RenderWindow app(VideoMode(1920, 1080), "Simulation Engine");
@@ -61,18 +40,6 @@ int main()
 
         gameEngine.tick(1);
 
-        drawGridMesh(&app);
-
-        Vector2i position = Mouse::getPosition(app);
-
-        Text text;
-        text.setPosition(50, 950);
-        text.setFont(font); 
-        text.setString(to_string(position.x) + ", " + to_string(position.y));
-        text.setCharacterSize(24); 
-        text.setFillColor(Color::White);
-        text.setStyle(Text::Bold | sf::Text::Underlined);
-        app.draw(text);
         
         app.display();
     }
