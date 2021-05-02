@@ -16,6 +16,10 @@ Person::Person(RenderWindow* app, Point location, float rotation)
 	currentRoom = NULL;
 	currentAction = NULL;
 
+	inventory = new map<string, int>();
+	setItem("Food", 3);
+	setItem("Weapon", 5);
+
 	Sprite* sprite = new Sprite(*DataLoader::personTexture);
 	sprite->setOrigin(25, 25);
 	setSprite(sprite);
@@ -30,6 +34,49 @@ void Person::setCurrentRoom(Room* room)
 Room* Person::getCurrentRoom()
 {
 	return currentRoom;
+}
+
+map<string, int>* Person::getInventory()
+{
+	return inventory;
+}
+
+int Person::getItem(string name)
+{
+	if (getInventory()->count(name) == 0)
+	{
+		return 0;
+	}
+	else
+	{
+		return (*getInventory())[name];
+	}
+}
+
+void Person::setItem(string name, int value)
+{
+	if (value == 0)
+	{
+		(*getInventory()).erase(name);
+	}
+	else
+	{
+		(*getInventory())[name] = value;
+	}
+}
+
+string Person::getStatusPanelString()
+{
+	string s = "Inventory: \n";
+	for (auto& item : (*getInventory())) {
+		s += item.first;
+		if (item.second != 1)
+		{
+			s += " - " + to_string(item.second);
+		}
+		s += "\n";
+	}
+	return s;
 }
 
 void Person::followPath(int timeDelta)
@@ -100,6 +147,7 @@ void Person::tick(int timeDelta)
 			currentAction->remainingWork -= 1;
 			if (currentAction->remainingWork <= 0)
 			{
+				currentAction->completionEffect();
 				currentAction = NULL;
 			}
 		}

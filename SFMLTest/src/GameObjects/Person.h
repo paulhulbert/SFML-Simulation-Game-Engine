@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <map>
+#include <string>
 #include "../GameObject.h"
 #include "../Pathfinder.h"
 
@@ -19,10 +21,15 @@ public:
     vector<AI*> AIs;
     void setCurrentRoom(Room* room);
     Room* getCurrentRoom();
+    map<string, int>* getInventory();
+    int getItem(string name);
+    void setItem(string name, int value);
+    string getStatusPanelString();
 private:
     void followPath(int timeDelta);
     int speed;
     int pathIndex;
     Room* currentRoom;
+    map<string, int>* inventory;
 };
 

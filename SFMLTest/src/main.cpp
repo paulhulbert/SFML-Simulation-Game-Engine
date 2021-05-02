@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <iostream>
 #include "GameObject.h";
 #include "DataLoader.h"
@@ -12,7 +13,7 @@ using std::cout;
 
 int main()
 {
-    RenderWindow app(VideoMode(1920, 1080), "Simulation Engine");
+    RenderWindow app(VideoMode::getFullscreenModes().at(0), "Simulation Engine", Style::Fullscreen);
     DataLoader::initialize();
     app.setFramerateLimit(60);
 

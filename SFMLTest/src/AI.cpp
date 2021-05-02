@@ -1,4 +1,5 @@
 #include "AI.h"
+#include "Actions/EatAction.h"
 
 Action* AI::generateAction()
 {
@@ -13,12 +14,11 @@ Action* AI::generateAction()
 		}
 		if (targetRoom != NULL)
 		{
-			Action* newAction = new Action();
-			newAction->name = "Hi";
-			newAction->remainingWork = 30;
+			EatAction* newAction = new EatAction();
 			newAction->targetPoint = Point(450, 650);
 			newAction->targetRoom = targetRoom;
-			//owner->currentPath = Pathfinder::getGlobalPath(owner->getLocation(), owner->getRoom(), Point(1050, 500), targetRoom);
+			newAction->eater = owner;
+			newAction->foodName = "Food";
 			return newAction;
 		}
 	} 
@@ -33,12 +33,11 @@ Action* AI::generateAction()
 		}
 		if (targetRoom != NULL)
 		{
-			Action* newAction = new Action();
-			newAction->name = "Hi";
-			newAction->remainingWork = 30;
+			EatAction* newAction = new EatAction();
 			newAction->targetPoint = Point(1050, 500);
 			newAction->targetRoom = targetRoom;
-			//owner->currentPath = Pathfinder::getGlobalPath(owner->getLocation(), owner->getRoom(), Point(1050, 500), targetRoom);
+			newAction->eater = owner;
+			newAction->foodName = "Food";
 			return newAction;
 		}
 	}

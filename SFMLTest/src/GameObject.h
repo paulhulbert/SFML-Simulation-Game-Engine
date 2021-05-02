@@ -20,6 +20,7 @@ public:
 	Sprite* getSprite();
 	virtual void render();
 	string name;
+	virtual string getStatusPanelString();
 private:
 	Point location;
 	float rotation;

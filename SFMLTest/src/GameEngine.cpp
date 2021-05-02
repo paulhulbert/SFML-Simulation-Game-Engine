@@ -12,6 +12,11 @@ GameEngine::GameEngine(RenderWindow* app)
 {
 	this->app = app;
 	gameUI = new GameUI(app);
+
+	cameraX = app->getDefaultView().getCenter().x + 30;
+	cameraY = app->getDefaultView().getCenter().y;
+
+
 	mainRoom = new GlobalRoom(app, Point(775, 550), 0, NULL);
 	gameObjects.push_back(mainRoom);
 	Room* sRoom1 = new SimpleRoom(app, Point(1000, 500), 0, mainRoom);
@@ -45,6 +50,12 @@ void drawGridMesh(RenderWindow* app)
 
 void GameEngine::tick(int timeDelta)
 {
+	View view1 = app->getDefaultView();
+	view1.setCenter(cameraX, cameraY);
+	app->setView(view1);
+
+	cameraX++;
+
 	for (list<GameObject*>::iterator it = gameObjects.begin(); it != gameObjects.end(); ++it) {
 		(*it)->tick(timeDelta);
 	}
@@ -52,7 +63,6 @@ void GameEngine::tick(int timeDelta)
 		(*it)->render();
 	}
 	drawGridMesh(app);
-
 	gameUI->render();
 }
 
@@ -75,7 +85,7 @@ void GameEngine::mouseClicked()
 
 	if (gameUI->backgroundSprite->getGlobalBounds().contains(translated_pos))
 	{
-		// Do UI stuff
+		gameUI->mouseClicked();
 	}
 	else
 	{

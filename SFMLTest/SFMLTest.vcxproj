@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Actions\EatAction.cpp" />
     <ClCompile Include="src\GameUI.cpp" />
     <ClCompile Include="src\Action.cpp" />
     <ClCompile Include="src\AI.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="src\DataLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Actions\EatAction.h" />
     <ClInclude Include="src\GameUI.h" />
     <ClInclude Include="src\Action.h" />
     <ClInclude Include="src\AI.h" />

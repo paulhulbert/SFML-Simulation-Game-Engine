@@ -9,6 +9,7 @@ public:
 	GameObject* selectedObject;
 	void render();
 	Sprite* backgroundSprite;
+	void mouseClicked();
 private:
 	RenderWindow* app;
 	Font* font;

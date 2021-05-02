@@ -34,6 +34,11 @@ void GameObject::render()
 	}
 }
 
+string GameObject::getStatusPanelString()
+{
+	return string();
+}
+
 void GameObject::setSprite(Sprite* sprite)
 {
 	this->sprite = sprite;

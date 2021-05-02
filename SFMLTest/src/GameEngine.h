@@ -17,5 +17,7 @@ private:
 	list<GameObject*> gameObjects;
 	Room* mainRoom;
 	GameUI* gameUI;
+	int cameraX;
+	int cameraY;
 };
 
