@@ -50,11 +50,32 @@ void drawGridMesh(RenderWindow* app)
 
 void GameEngine::tick(int timeDelta)
 {
+	auto mouse_pos = sf::Mouse::getPosition(*app);
+	auto translated_pos = app->mapPixelToCoords(mouse_pos, app->getDefaultView());
+
+	if (translated_pos.x < 5)
+	{
+		cameraX -= 3;
+	}
+	else if (translated_pos.x > app->getDefaultView().getSize().x - 5)
+	{
+		cameraX += 3;
+	}
+
+	if (translated_pos.y < 5)
+	{
+		cameraY -= 3;
+	}
+	else if (translated_pos.y > app->getDefaultView().getSize().y - 5)
+	{
+		cameraY += 3;
+	}
+
+
 	View view1 = app->getDefaultView();
 	view1.setCenter(cameraX, cameraY);
 	app->setView(view1);
 
-	cameraX++;
 
 	for (list<GameObject*>::iterator it = gameObjects.begin(); it != gameObjects.end(); ++it) {
 		(*it)->tick(timeDelta);
@@ -83,7 +104,7 @@ void GameEngine::mouseClicked()
 	auto mouse_pos = sf::Mouse::getPosition(*app); 
 	auto translated_pos = app->mapPixelToCoords(mouse_pos); 
 
-	if (gameUI->backgroundSprite->getGlobalBounds().contains(translated_pos))
+	if (gameUI->backgroundSprite->getGlobalBounds().contains(app->mapPixelToCoords(mouse_pos, app->getDefaultView())))
 	{
 		gameUI->mouseClicked();
 	}
