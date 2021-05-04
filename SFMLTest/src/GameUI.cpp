@@ -2,6 +2,8 @@
 #include <iostream>
 #include "GameUI.h"
 #include "DataLoader.h"
+#include "GameObjects/Person.h"
+#include "AIs/PlayerCharacterAI.h"
 using namespace sf;
 using std::cout;
 using std::endl;
@@ -15,6 +17,8 @@ GameUI::GameUI(RenderWindow* app)
 	backgroundSprite->setPosition(0, 1200);
     font = new Font();;
     font->loadFromFile("images/arial.ttf");
+    player = NULL;
+    currentQuery = NULL;
 }
 
 void GameUI::render()
@@ -40,6 +44,24 @@ void GameUI::render()
     rectangle.setPosition(800, 1300);
     app->draw(rectangle);
 
+    rectangle.setSize(sf::Vector2f(500, 100));
+    rectangle.setOutlineColor(sf::Color::Black);
+    rectangle.setFillColor(Color::White);
+    rectangle.setOutlineThickness(5);
+    rectangle.setOrigin(250, 50);
+    rectangle.setPosition(1500, 1275);
+    app->draw(rectangle);
+
+
+    if (!((PlayerCharacterAI*)player->AIs.at(0))->activeQueries.empty())
+    {
+        currentQuery = ((PlayerCharacterAI*)player->AIs.at(0))->activeQueries.front();
+    }
+    if (currentQuery != NULL && currentQuery->response == -1)
+    {
+        renderQueries();
+    }
+
 
 
     rectangle.setSize(sf::Vector2f(30, 30));
@@ -47,7 +69,7 @@ void GameUI::render()
     rectangle.setFillColor(Color::Red);
     rectangle.setOutlineThickness(5);
     rectangle.setOrigin(15, 15);
-    rectangle.setPosition(1800, 1300);
+    rectangle.setPosition(2300, 1300);
     app->draw(rectangle);
 
 
@@ -90,7 +112,7 @@ void GameUI::render()
     Text text;
     text.setPosition(350, 1300);
     text.setFont(*font);
-    text.setString(to_string(translated_pos.x) + ", " + to_string(translated_pos.y));
+    text.setString(to_string((int)translated_pos.x) + ", " + to_string((int)translated_pos.y));
     text.setCharacterSize(24);
     text.setFillColor(Color::White);
     text.setStyle(Text::Bold | sf::Text::Underlined);
@@ -104,9 +126,49 @@ void GameUI::mouseClicked()
     auto mouse_pos = sf::Mouse::getPosition(*app);
     auto translated_pos = app->mapPixelToCoords(mouse_pos, app->getDefaultView());
 
-    if (translated_pos.x > 1800 - 15 && translated_pos.x < 1800 + 15 && translated_pos.y > 1300 - 15 && translated_pos.y < 1300 + 15)
+    if (translated_pos.x > 2300 - 15 && translated_pos.x < 2300 + 15 && translated_pos.y > 1300 - 15 && translated_pos.y < 1300 + 15)
     {
         exit(0);
     }
 
+    if (currentQuery != NULL && currentQuery->response == -1)
+    {
+        if (translated_pos.y > 1375 - 25 && translated_pos.y < 1375 + 25)
+        {
+            for (int i = 0; i < currentQuery->options.size(); i++)
+            {
+                if (translated_pos.x > 1325 - 75 && translated_pos.x < 1325 + i * 160 + 75)
+                {
+                    currentQuery->response = i;
+                    break;
+                }
+            }
+        }
+    }
+
+}
+
+void GameUI::renderQueries()
+{
+    for (int i = 0; i < currentQuery->options.size(); i++)
+    {
+        RectangleShape rectangle;
+        rectangle.setSize(sf::Vector2f(150, 50));
+        rectangle.setOutlineColor(sf::Color::Black);
+        rectangle.setFillColor(Color::White);
+        rectangle.setOutlineThickness(5);
+        rectangle.setOrigin(75, 25);
+        rectangle.setPosition(1325 + i * 160, 1375);
+        app->draw(rectangle);
+
+        Text text;
+        text.setOrigin(75, 25);
+        text.setPosition(1325 + i * 160, 1375);
+        text.setFont(*font);
+        text.setString(currentQuery->options.at(i));
+        text.setCharacterSize(14);
+        text.setFillColor(Color::Black);
+        text.setStyle(Text::Bold);
+        app->draw(text);
+    }
 }

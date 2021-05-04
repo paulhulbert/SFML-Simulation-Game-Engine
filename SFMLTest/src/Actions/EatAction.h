@@ -7,6 +7,8 @@ public:
     EatAction();
     Person* eater;
     string foodName;
+    void tick();
+private:
     void completionEffect();
 };
 

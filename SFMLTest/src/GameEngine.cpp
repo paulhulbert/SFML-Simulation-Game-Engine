@@ -5,6 +5,7 @@
 #include "GameObjects/Rooms/SimpleRoom.h"
 #include "Constants.h"
 #include "AI.h"
+#include "AIs/PlayerCharacterAI.h"
 #include <iostream>
 using namespace sf;
 
@@ -20,12 +21,23 @@ GameEngine::GameEngine(RenderWindow* app)
 	mainRoom = new GlobalRoom(app, Point(775, 550), 0, NULL);
 	gameObjects.push_back(mainRoom);
 	Room* sRoom1 = new SimpleRoom(app, Point(1000, 500), 0, mainRoom);
+	sRoom1->name = "sRoom1";
 	Room* sRoom2 = new SimpleRoom(app, Point(500, 700), Constants::PI / 2, mainRoom);
-	Person* person = new Person(app, Point(450, 650), 45);
-	person->setCurrentRoom(sRoom2);
+	sRoom2->name = "sRoom2";
+	Person* person = new Person(app, Point(450, 250), 45);
+	person->setCurrentRoom(mainRoom);
 	AI* ai = new AI();
 	ai->owner = person;
 	person->AIs.push_back(ai);
+
+
+	Person* player = new Person(app, Point(1000, 500), 0);
+	player->name = "Player";
+	player->setCurrentRoom(sRoom1);
+	AI* playerAI = new PlayerCharacterAI();
+	playerAI->owner = player;
+	player->AIs.push_back(playerAI);
+	gameUI->player = player;
 }
 
 void drawGridMesh(RenderWindow* app)

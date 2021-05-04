@@ -5,6 +5,10 @@
 #include "Point.h"
 using namespace sf;
 using namespace std;
+
+class Room;
+class Person;
+
 class GameObject
 {
 protected:
@@ -21,6 +25,8 @@ public:
 	virtual void render();
 	string name;
 	virtual string getStatusPanelString();
+	virtual Room* getRoomByName(string name);
+	virtual Person* getPersonByName(string name);
 private:
 	Point location;
 	float rotation;

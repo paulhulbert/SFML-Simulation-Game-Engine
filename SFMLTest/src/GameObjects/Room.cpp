@@ -70,6 +70,65 @@ void Room::render()
 	}
 }
 
+Room* Room::getRoomByName(string name)
+{
+	Room* topRoom = this;
+	while (topRoom->parentRoom != NULL)
+	{
+		topRoom = topRoom->parentRoom;
+	}
+	return topRoom->getRoomByNameRecursive(name);
+}
+
+Person* Room::getPersonByName(string name)
+{
+	Room* topRoom = this;
+	while (topRoom->parentRoom != NULL)
+	{
+		topRoom = topRoom->parentRoom;
+	}
+	return topRoom->getPersonByNameRecursive(name);
+}
+
+Room* Room::getRoomByNameRecursive(string name)
+{
+	if (this->name == name)
+	{
+		return this;
+	}
+
+	for (list<Room*>::iterator it = internalRooms.begin(); it != internalRooms.end(); ++it) {
+		Room* internalCall = (*it)->getRoomByNameRecursive(name);
+		if (internalCall != nullptr)
+		{
+			return internalCall;
+		}
+	}
+	return nullptr;
+}
+
+Person* Room::getPersonByNameRecursive(string name)
+{
+	for (list<Person*>::iterator it = containedPeople.begin(); it != containedPeople.end(); ++it) {
+		(*it)->render();
+		if ((*it)->name == name)
+		{
+			return (*it);
+		}
+	}
+
+	for (list<Room*>::iterator it = internalRooms.begin(); it != internalRooms.end(); ++it) {
+		Person* internalCall = (*it)->getPersonByNameRecursive(name);
+		if (internalCall != nullptr)
+		{
+			return internalCall;
+		}
+	}
+
+
+	return nullptr;
+}
+
 RoomFootprint* Room::getRoomFootprint()
 {
 	return footprint;

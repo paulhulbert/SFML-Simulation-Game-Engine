@@ -142,6 +142,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Queries\LocationQuery.cpp" />
+    <ClCompile Include="src\Actions\WaitAction.cpp" />
+    <ClCompile Include="src\AIs\PlayerCharacterAI.cpp" />
+    <ClCompile Include="src\Actions\GiveQueryAction.cpp" />
+    <ClCompile Include="src\Query.cpp" />
     <ClCompile Include="src\Actions\EatAction.cpp" />
     <ClCompile Include="src\GameUI.cpp" />
     <ClCompile Include="src\Action.cpp" />
@@ -165,6 +170,11 @@
     <ClCompile Include="src\DataLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Queries\LocationQuery.h" />
+    <ClInclude Include="src\Actions\WaitAction.h" />
+    <ClInclude Include="src\AIs\PlayerCharacterAI.h" />
+    <ClInclude Include="src\Actions\GiveQueryAction.h" />
+    <ClInclude Include="src\Query.h" />
     <ClInclude Include="src\Actions\EatAction.h" />
     <ClInclude Include="src\GameUI.h" />
     <ClInclude Include="src\Action.h" />

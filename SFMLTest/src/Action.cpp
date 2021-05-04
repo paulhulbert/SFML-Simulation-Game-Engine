@@ -1,6 +1,6 @@
 #include "Action.h"
 
-void Action::completionEffect()
+void Action::tick()
 {
-
+	remainingWork--;
 }

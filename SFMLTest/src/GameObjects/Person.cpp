@@ -10,7 +10,7 @@
 Person::Person(RenderWindow* app, Point location, float rotation)
 	:GameObject{app, location, rotation}
 {
-	speed = 2;
+	speed = 8;
 	pathIndex = 0;
 	currentPath = NULL;
 	currentRoom = NULL;
@@ -76,7 +76,33 @@ string Person::getStatusPanelString()
 		}
 		s += "\n";
 	}
+
+	if (currentAction != NULL)
+	{
+		s = "Action: " + currentAction->name + "\n" + s;
+	}
 	return s;
+}
+
+void Person::receiveQuery(Query* query)
+{
+	for (int i = 0; i < AIs.size(); i++)
+	{
+		if (AIs.at(i)->handleQuery(query))
+		{
+			break;
+		}
+	}
+}
+
+Room* Person::getRoomByName(string name)
+{
+	return getCurrentRoom()->getRoomByName(name);
+}
+
+Person* Person::getPersonByName(string name)
+{
+	return getCurrentRoom()->getPersonByName(name);
 }
 
 void Person::followPath(int timeDelta)
@@ -144,10 +170,9 @@ void Person::tick(int timeDelta)
 	{
 		if (getLocation().x == currentAction->targetPoint.x && getLocation().y == currentAction->targetPoint.y)
 		{
-			currentAction->remainingWork -= 1;
+			currentAction->tick();
 			if (currentAction->remainingWork <= 0)
 			{
-				currentAction->completionEffect();
 				currentAction = NULL;
 			}
 		}

@@ -12,6 +12,6 @@ public:
 	Point targetPoint;
 	int remainingWork;
 	Room* targetRoom;
-	virtual void completionEffect();
+	virtual void tick();
 };
 

@@ -19,10 +19,14 @@ public:
     vector<Entrypoint*> getEntrypoints();
     virtual void tick(int timeDelta);
     virtual void render();
+    Room* getRoomByName(string name);
+    Person* getPersonByName(string name);
 private:
     Pathfinder* pathfinder;
     RoomFootprint* footprint;
     vector<Entrypoint*> entrypoints;
     void identifyEntrypoints();
+    Room* getRoomByNameRecursive(string name);
+    Person* getPersonByNameRecursive(string name);
 };
 

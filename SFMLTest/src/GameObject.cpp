@@ -39,6 +39,16 @@ string GameObject::getStatusPanelString()
 	return string();
 }
 
+Room* GameObject::getRoomByName(string name)
+{
+	return nullptr;
+}
+
+Person* GameObject::getPersonByName(string name)
+{
+	return nullptr;
+}
+
 void GameObject::setSprite(Sprite* sprite)
 {
 	this->sprite = sprite;

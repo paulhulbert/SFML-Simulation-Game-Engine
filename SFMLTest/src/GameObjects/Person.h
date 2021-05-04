@@ -4,6 +4,7 @@
 #include <string>
 #include "../GameObject.h"
 #include "../Pathfinder.h"
+#include "../Query.h"
 
 class AI;
 class Action;
@@ -25,6 +26,9 @@ public:
     int getItem(string name);
     void setItem(string name, int value);
     string getStatusPanelString();
+    void receiveQuery(Query* query);
+    Room* getRoomByName(string name);
+    Person* getPersonByName(string name);
 private:
     void followPath(int timeDelta);
     int speed;
